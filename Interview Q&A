@@ -31,3 +31,9 @@ and networking/security requirements.
 Then I update the Kubernetes Deployment with the ECR image URI and deploy it using kubectl apply. After deployment, 
 I check the rollout status, pods, services, events and application logs to confirm that the application is running 
 successfully.”
+4)  If the application is successfully deployed in EKS but users are unable to access it
+  If the pods are running but users cannot access the application, I don't immediately assume the application is healthy.
+I troubleshoot layer by layer: first pod status and logs, then readiness probes, Service configuration and endpoints, 
+then Ingress or Load Balancer, and finally AWS networking such as security groups, NACLs, subnets, route tables,
+target-group health and DNS. I also test connectivity from inside the cluster to isolate whether it is an application
+issue or an external connectivity issue
