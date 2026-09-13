@@ -17,3 +17,17 @@ deployment stage is using the correct image name and tag.
 If the pipeline reaches the deployment stage but the deployment fails, I would check the Kubernetes/EKS deployment logs, 
 pod status, image-pull errors, permissions, and service configuration. Based on the logs, I would fix the issue and rerun 
 the pipeline.”
+
+3)  What all steps do you perform before deploying an application to EKS/ECR?
+
+“Before deploying an application to EKS, I first build and test the application. Then I create the Docker image and scan 
+it for vulnerabilities using Trivy. If the scan passes, I authenticate with Amazon ECR and push the image with a proper
+version tag. After that, I verify the image is available in ECR.
+
+Before deployment to EKS, I make sure the EKS cluster is available and the required Kubernetes resources such as 
+Namespace, ConfigMap, Secret, ServiceAccount, Deployment and Service are configured. I also verify IAM permissions
+and networking/security requirements.
+
+Then I update the Kubernetes Deployment with the ECR image URI and deploy it using kubectl apply. After deployment, 
+I check the rollout status, pods, services, events and application logs to confirm that the application is running 
+successfully.”
