@@ -1,4 +1,19 @@
-By using terrfaorm statefile you created ec2 and deleted from aws consolecan we able to create ec2 againa withsame statefile 
+1) By using terrfaorm statefile you created ec2 and deleted from aws consolecan we able to create ec2 againa withsame statefile 
 "Yes. If an EC2 instance created by Terraform is manually deleted from the AWS console, the Terraform state still has the old resource information. 
 During the next terraform plan or terraform apply, Terraform refreshes the state, detects that the resource no longer exists in AWS, and plans to recreate 
 it according to the configuration. After creation, Terraform updates the state file with the new resource ID."
+
+2) If your CI/CD pipeline is successfully completing all stages up to the Trivy scan, but the deployment stage is not happening,
+
+I would first check the Jenkins console logs to identify whether the deployment stage is failing or being skipped.
+
+I would verify the Trivy scan result and exit code, because if Trivy is configured with --exit-code 1 for HIGH or CRITICAL 
+vulnerabilities, Jenkins may stop the pipeline and not proceed to deployment.
+
+I would also check the Jenkinsfile for any when conditions, branch restrictions, or dependencies between the Trivy and 
+deployment stages. Then I would verify that the Docker image was successfully pushed to the registry and that the
+deployment stage is using the correct image name and tag.
+
+If the pipeline reaches the deployment stage but the deployment fails, I would check the Kubernetes/EKS deployment logs, 
+pod status, image-pull errors, permissions, and service configuration. Based on the logs, I would fix the issue and rerun 
+the pipeline.”
